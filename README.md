@@ -100,7 +100,7 @@ tienda_mvc/
 
 ## Autores
 
-Eduardo Montes de Oca Zatarain
-Abraham Paez Guerra
-Erik Watson Rosales
-Carlos Tirado Velazquez
+- Eduardo Montes de Oca Zatarain
+- Abraham Paez Guerra
+- Erik Watson Rosales
+- Carlos Tirado Velazquez

@@ -267,4 +267,89 @@ class ProductoModel
             return false;
         }
     }
+
+    /**
+     * Obtiene un producto por SKU
+     */
+    public function obtenerPorSku(string $sku): ?array
+    {
+        try {
+            $sql = 'SELECT * FROM productos WHERE sku = :sku LIMIT 1';
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':sku', $sku);
+            $stmt->execute();
+            $producto = $stmt->fetch();
+            return $producto ?: null;
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Actualiza un producto existente por su SKU
+     */
+    public function actualizarPorSku(string $sku, array $data): bool
+    {
+        try {
+            $this->conexion->beginTransaction();
+
+            $sql = 'UPDATE productos SET
+                        nombre = :nombre,
+                        descripcion = :descripcion,
+                        precio_compra = :precio_compra,
+                        precio_venta = :precio_venta,
+                        existencia = :existencia
+                    WHERE sku = :sku';
+
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':nombre', $data['nombre']);
+            $stmt->bindParam(':descripcion', $data['descripcion']);
+            $stmt->bindParam(':precio_compra', $data['precio_compra']);
+            $stmt->bindParam(':precio_venta', $data['precio_venta']);
+            $stmt->bindParam(':existencia', $data['existencia'], PDO::PARAM_INT);
+            $stmt->bindParam(':sku', $sku);
+            $stmt->execute();
+
+            if ($stmt->rowCount() === 0 && $this->existePorSku($sku) === false) {
+                // El producto no existía para actualizar
+                $this->conexion->rollBack();
+                return false;
+            }
+
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            if ($this->conexion->inTransaction()) {
+                $this->conexion->rollBack();
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Elimina un producto por su SKU
+     */
+    public function eliminarPorSku(string $sku): bool
+    {
+        try {
+            $this->conexion->beginTransaction();
+            $sql = 'DELETE FROM productos WHERE sku = :sku';
+            $stmt = $this->conexion->prepare($sql);
+            $stmt->bindParam(':sku', $sku);
+            $stmt->execute();
+
+            if ($stmt->rowCount() === 0) {
+                $this->conexion->rollBack();
+                return false;
+            }
+
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            if ($this->conexion->inTransaction()) {
+                $this->conexion->rollBack();
+            }
+            return false;
+        }
+    }
 }

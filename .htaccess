@@ -1,6 +1,3 @@
-# ✅ Mejora: Rutas amigables con htaccess
-# Redirige todas las solicitudes a index.php (excepto archivos y directorios existentes)
-
 RewriteEngine On
 
 # Si el archivo o directorio existe, servirlo directamente

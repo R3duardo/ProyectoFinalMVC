@@ -6,9 +6,9 @@ use PDOException;
 
 class Database
 {
-    private string $host = 'localhost';
+    private string $host = '';
     private string $dbName = 'tienda_mvc';
-    private string $username = 'root';
+    private string $username = '';
     private string $password = '';
     private string $charset = 'utf8mb4';
 

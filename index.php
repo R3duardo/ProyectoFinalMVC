@@ -4,6 +4,7 @@ require_once __DIR__ . '/config/Autoload.php';
 use Controllers\AuthController;
 use Controllers\ProductoController;
 use Controllers\PublicController;
+use Controllers\ApiController;
 
 define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\'));
 
@@ -25,6 +26,50 @@ if (!empty($path) && $path !== 'index.php') {
     $route = $_GET['route'] ?? 'catalogo';
 }
 
+// ---------------------------------------------------------
+// ENRUTAMIENTO API REST
+// ---------------------------------------------------------
+if (str_starts_with($route, 'api/')) {
+    $apiController = new ApiController();
+    $method = $_SERVER['REQUEST_METHOD'];
+
+    // Extraer segmentos de la ruta api (ej: api/productos/SKU-001)
+    $segments = explode('/', $route);
+    $endpoint = $segments[1] ?? '';
+    $sku = $segments[2] ?? '';
+
+    if ($endpoint === 'login' && $method === 'POST') {
+        $apiController->login();
+        exit;
+    }
+
+    if ($endpoint === 'productos') {
+        if ($sku === '') {
+            // GET /api/productos
+            if ($method === 'GET') {
+                $apiController->index();
+            }
+        } else {
+            // /api/productos/{sku}
+            if ($method === 'GET') {
+                $apiController->show($sku);
+            } elseif ($method === 'PUT' || $method === 'POST') {
+                $apiController->update($sku);
+            } elseif ($method === 'DELETE') {
+                $apiController->delete($sku);
+            }
+        }
+    }
+
+    // Endpoint no encontrado
+    http_response_code(404);
+    echo json_encode(['error' => 'Endpoint no encontrado']);
+    exit;
+}
+
+// ---------------------------------------------------------
+// ENRUTAMIENTO WEB MVC NORMAL
+// ---------------------------------------------------------
 // Extraer ID de la ruta (ej: productos/edit/5)
 $segments = explode('/', $route);
 if (count($segments) >= 3 && is_numeric($segments[count($segments) - 1])) {
