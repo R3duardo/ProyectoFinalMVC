@@ -66,7 +66,7 @@ require_once __DIR__ . '/../layouts/header.php';
         <label class="form-label">Imagen del producto</label>
         <?php if (!empty($producto['imagen'])): ?>
             <div class="mb-2">
-                <img src="<?= BASE_URL ?>/uploads/<?= htmlspecialchars($producto['imagen']); ?>"
+                <img src="<?= htmlspecialchars($producto['imagen']); ?>"
                      alt="Imagen actual" style="max-width: 200px; max-height: 150px; border-radius: 8px; border: 1px solid #ddd;">
                 <p class="text-muted mt-1"><small>Imagen actual. Sube una nueva para reemplazarla.</small></p>
             </div>

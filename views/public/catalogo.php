@@ -37,9 +37,9 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
                     <?php if (!empty($producto['imagen'])): ?>
-                        <img src="<?= BASE_URL ?>/uploads/<?= htmlspecialchars($producto['imagen']); ?>"
+                        <img src="<?= htmlspecialchars($producto['imagen']); ?>"
                              class="card-img-top" alt="<?= htmlspecialchars($producto['nombre']); ?>"
-                             style="height: 200px; object-fit: cover;">
+                             style="height: 200px; object-fit: contain; background-color: #f8f9fa;">
                     <?php else: ?>
                         <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
                              style="height: 200px;">

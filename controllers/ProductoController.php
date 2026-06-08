@@ -44,7 +44,7 @@ class ProductoController
 
     /**
      * Procesa la subida de imagen
-     * Retorna el nombre del archivo guardado o null si no se subió imagen
+     * Retorna la imagen en formato Base64 o null si no se subió imagen
      */
     private function procesarImagen(): ?string
     {
@@ -73,29 +73,20 @@ class ProductoController
             return null;
         }
 
-        // Generar nombre único
-        $nombreArchivo = uniqid('prod_') . '.' . $extension;
-        $rutaDestino = __DIR__ . '/../uploads/' . $nombreArchivo;
-
-        if (move_uploaded_file($file['tmp_name'], $rutaDestino)) {
-            return $nombreArchivo;
+        // Leer el contenido del archivo y convertir a Base64
+        $contenido = file_get_contents($file['tmp_name']);
+        if ($contenido !== false) {
+            // Detectar el tipo MIME real
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mime = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+            
+            // Construir la cadena Data URI
+            return 'data:' . $mime . ';base64,' . base64_encode($contenido);
         }
 
-        $_SESSION['error'] = 'No se pudo guardar la imagen.';
+        $_SESSION['error'] = 'No se pudo leer la imagen.';
         return null;
-    }
-
-    /**
-     * Elimina un archivo de imagen del servidor
-     */
-    private function eliminarImagen(?string $nombreArchivo): void
-    {
-        if ($nombreArchivo) {
-            $ruta = __DIR__ . '/../uploads/' . $nombreArchivo;
-            if (file_exists($ruta)) {
-                unlink($ruta);
-            }
-        }
     }
 
     /**
@@ -211,8 +202,6 @@ class ProductoController
             $this->registrarLog('Crear producto', 'SKU: ' . $data['sku'] . ', Nombre: ' . $data['nombre']);
             $_SESSION['success'] = 'Producto registrado correctamente.';
         } else {
-            // Si falló, eliminar la imagen subida
-            $this->eliminarImagen($imagen);
             $_SESSION['error'] = 'No fue posible registrar el producto.';
         }
 
@@ -328,11 +317,6 @@ class ProductoController
         // Mejora: Subir imagen (si se proporcionó una nueva)
         $imagen = $this->procesarImagen();
         if ($imagen !== null) {
-            // Eliminar imagen anterior si existe
-            $productoAnterior = $this->productoModel->obtenerPorId($id);
-            if ($productoAnterior && $productoAnterior['imagen']) {
-                $this->eliminarImagen($productoAnterior['imagen']);
-            }
             $data['imagen'] = $imagen;
         }
 
@@ -341,9 +325,6 @@ class ProductoController
             $this->registrarLog('Actualizar producto', 'ID: ' . $id . ', SKU: ' . $data['sku'] . ', Nombre: ' . $data['nombre']);
             $_SESSION['success'] = 'Producto actualizado correctamente.';
         } else {
-            if ($imagen !== null) {
-                $this->eliminarImagen($imagen);
-            }
             $_SESSION['error'] = 'No fue posible actualizar el producto.';
         }
 
@@ -377,10 +358,6 @@ class ProductoController
         $producto = $this->productoModel->obtenerPorId($id);
 
         if ($this->productoModel->eliminar($id)) {
-            // Eliminar imagen asociada
-            if ($producto && $producto['imagen']) {
-                $this->eliminarImagen($producto['imagen']);
-            }
             // Mejora: Registrar en bitácora
             $this->registrarLog('Eliminar producto', 'ID: ' . $id . ($producto ? ', SKU: ' . $producto['sku'] . ', Nombre: ' . $producto['nombre'] : ''));
             $_SESSION['success'] = 'Producto eliminado correctamente.';

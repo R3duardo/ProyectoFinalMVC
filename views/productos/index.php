@@ -39,7 +39,7 @@ require_once __DIR__ . '/../layouts/header.php';
             <td><?= (int)$producto['id']; ?></td>
             <td>
                 <?php if (!empty($producto['imagen'])): ?>
-                    <img src="<?= BASE_URL ?>/uploads/<?= htmlspecialchars($producto['imagen']); ?>"
+                    <img src="<?= htmlspecialchars($producto['imagen']); ?>"
                          alt="<?= htmlspecialchars($producto['nombre']); ?>"
                          style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
                 <?php else: ?>
