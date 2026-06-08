@@ -3,16 +3,16 @@ use Config\Csrf;
 require_once __DIR__ . '/../layouts/header.php';
 ?>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3 gap-2">
     <h2><i class="bi bi-box-seam"></i> Administración de productos</h2>
-    <div>
-        <a href="<?= BASE_URL ?>/productos/create" class="btn btn-success">
+    <div class="d-flex flex-wrap gap-2">
+        <a href="<?= BASE_URL ?>/productos/create" class="btn btn-success btn-sm">
             <i class="bi bi-plus-circle"></i> Nuevo producto
         </a>
-        <a href="<?= BASE_URL ?>/logs" class="btn btn-secondary">
+        <a href="<?= BASE_URL ?>/logs" class="btn btn-secondary btn-sm">
             <i class="bi bi-journal-text"></i> Bitácora
         </a>
-        <a href="<?= BASE_URL ?>/logout" class="btn btn-danger">
+        <a href="<?= BASE_URL ?>/logout" class="btn btn-danger btn-sm">
             <i class="bi bi-box-arrow-right"></i> Cerrar sesión
         </a>
     </div>
