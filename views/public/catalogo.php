@@ -70,9 +70,9 @@
                     <?php if (!empty($producto['imagen'])): ?>
                         <img src="<?= htmlspecialchars($producto['imagen']); ?>"
                              class="card-img-top" alt="<?= htmlspecialchars($producto['nombre']); ?>"
-                             style="height: 200px; object-fit: contain; background-color: #f8f9fa;">
+                             style="height: 200px; object-fit: contain; background-color: #ffffff;">
                     <?php else: ?>
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
+                        <div class="card-img-top bg-white d-flex align-items-center justify-content-center"
                              style="height: 200px;">
                             <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
                         </div>
