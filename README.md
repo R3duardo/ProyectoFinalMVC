@@ -1,9 +1,11 @@
 # Sistema MVC con PHP - Tienda MVC
 
 ## Descripción
+
 Sistema web desarrollado en PHP con arquitectura MVC que permite la gestión de productos a través de un panel de administración y un catálogo público para visitantes.
 
 ## Tecnologías Utilizadas
+
 - **PHP** (Orientado a Objetos)
 - **MySQL** (Base de datos)
 - **PDO** (Acceso a datos)
@@ -12,6 +14,7 @@ Sistema web desarrollado en PHP con arquitectura MVC que permite la gestión de 
 - **Transacciones** (Integridad de datos)
 
 ## Estructura del Proyecto
+
 ```
 tienda_mvc/
 ├── config/
@@ -45,11 +48,13 @@ tienda_mvc/
 ## Instalación
 
 ### 1. Base de Datos
+
 1. Abrir phpMyAdmin o la terminal de MySQL
 2. Ejecutar el archivo `database.sql`
 3. Esto creará la base de datos `tienda_mvc`, las tablas y un usuario administrador
 
 ### 2. Configuración
+
 1. Copiar la carpeta `tienda_mvc` en la carpeta `htdocs` de XAMPP (o la carpeta correspondiente de tu servidor)
 2. Verificar la configuración de la base de datos en `config/Database.php`:
    - Host: `localhost`
@@ -58,20 +63,24 @@ tienda_mvc/
    - Contraseña: `` (vacía por defecto en XAMPP)
 
 ### 3. Ejecución
+
 1. Iniciar Apache y MySQL desde XAMPP
 2. Acceder a `http://localhost/tienda_mvc/`
 
 ## Credenciales de Administrador
+
 - **Usuario:** `admin`
 - **Contraseña:** `admin123`
 
 ## Funcionalidades
 
 ### Área Pública
+
 - Ver catálogo de productos
 - Buscar productos por nombre o descripción
 
 ### Área Privada (Administrador)
+
 - Iniciar sesión
 - Listar productos
 - Agregar nuevos productos
@@ -79,6 +88,7 @@ tienda_mvc/
 - Eliminar productos
 
 ## Buenas Prácticas Implementadas
+
 - Arquitectura MVC
 - PDO con sentencias preparadas
 - Transacciones en operaciones críticas
@@ -88,7 +98,9 @@ tienda_mvc/
 - Prevención de SQL Injection
 - Escape de salida con htmlspecialchars
 
-## Autor
-Práctica Integradora - Desarrollo Web Avanzado
-Dr. José Alfonso Aguilar Calderón
-Facultad de Informática Mazatlán - UAS
+## Autores
+
+Eduardo Montes de Oca Zatarain
+Abraham Paez Guerra
+Erik Watson Rosales
+Carlos Tirado Velazquez
