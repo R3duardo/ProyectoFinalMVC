@@ -4,6 +4,12 @@
 
 Sistema web desarrollado en PHP con arquitectura MVC que permite la gestión de productos a través de un panel de administración y un catálogo público para visitantes.
 
+## Documentación Oficial
+
+Puedes consultar la documentación completa de la API REST, instalación, y guía de uso del sistema (generada con Mintlify) en el siguiente enlace:
+
+->**[https://reduardo.mintlify.app/introduction](https://reduardo.mintlify.app/introduction)**
+
 ## Tecnologías Utilizadas
 
 - **PHP** (Orientado a Objetos)
