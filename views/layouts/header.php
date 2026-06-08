@@ -39,7 +39,8 @@
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .glass-table {
