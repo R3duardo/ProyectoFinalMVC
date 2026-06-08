@@ -1,4 +1,35 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
+<style>
+    /* Animación Hover en las tarjetas */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+    }
+    
+    /* Animación Fade In escalonado */
+    .fade-in-item {
+        animation: fadeIn 0.6s ease-out forwards;
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    /* Añadir delays a los elementos de la grilla */
+    .row > .col-md-4:nth-child(1) .fade-in-item { animation-delay: 0.1s; }
+    .row > .col-md-4:nth-child(2) .fade-in-item { animation-delay: 0.2s; }
+    .row > .col-md-4:nth-child(3) .fade-in-item { animation-delay: 0.3s; }
+    .row > .col-md-4:nth-child(4) .fade-in-item { animation-delay: 0.4s; }
+    .row > .col-md-4:nth-child(5) .fade-in-item { animation-delay: 0.5s; }
+    .row > .col-md-4:nth-child(6) .fade-in-item { animation-delay: 0.6s; }
+    .row > .col-md-4:nth-child(n+7) .fade-in-item { animation-delay: 0.7s; }
+</style>
 
 <div class="row mb-4">
     <div class="col-md-8">
@@ -34,7 +65,7 @@
 <div class="row">
     <?php if (!empty($productos)): ?>
         <?php foreach ($productos as $producto): ?>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 fade-in-item">
                 <div class="card h-100 shadow-sm">
                     <?php if (!empty($producto['imagen'])): ?>
                         <img src="<?= htmlspecialchars($producto['imagen']); ?>"
